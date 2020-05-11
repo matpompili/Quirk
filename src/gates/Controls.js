@@ -27,7 +27,7 @@ let Controls = {};
 Controls.Control = new GateBuilder().
     setSerializedIdAndSymbol("•").
     setTitle("Control").
-    setBlurb("Conditions on a qubit being ON.\nGates in the same column only apply to states meeting the condition.").
+    setBlurb("Conditions on a qubit being |1⟩.\nGates in the same column only apply to states meeting the condition.").
     promiseHasNoNetEffectOnStateVector().
     markAsControlExpecting(true).
     promiseEffectIsUnitary().
@@ -44,7 +44,7 @@ Controls.AntiControl = new GateBuilder().
     setAlternate(Controls.Control).
     setSerializedIdAndSymbol("◦").
     setTitle("Anti-Control").
-    setBlurb("Conditions on a qubit being OFF.\nGates in the same column only apply to states meeting the condition.").
+    setBlurb("Conditions on a qubit being |0⟩.\nGates in the same column only apply to states meeting the condition.").
     promiseHasNoNetEffectOnStateVector().
     markAsControlExpecting(false).
     promiseEffectIsUnitary().
@@ -59,18 +59,13 @@ Controls.AntiControl = new GateBuilder().
     }).
     gate;
 
-Controls.XAntiControl = new GateBuilder().
-    setSerializedId("⊕").  // The drawn +/- convention was changed, but the serialized id must stay the same.
-    setSymbol("⊖").
-    setTitle("X-Axis Anti-Control").
-    setBlurb("Conditions on a qubit being ON+OFF.\n" +
-        "Gates in the same column only apply to states meeting the condition.").
-    markAsControlExpecting(false).
-    setSetupCleanupEffectToUpdateFunc(
-        HalfTurnGates.H.customOperation,
-        HalfTurnGates.H.customOperation).
-    setActualEffectToUpdateFunc(() => {}).
-    promiseEffectIsStable().
+
+Controls.DDControl = new GateBuilder().
+    setSerializedIdAndSymbol("◒").
+    setTitle("DD-Control").
+    setBlurb("Conditions U / U^† on a qubit being |0⟩ / |1⟩.\nGates in the same column only apply to states meeting the condition.").
+    promiseHasNoNetEffectOnStateVector().
+    markAsControlExpecting(true).
     promiseEffectIsUnitary().
     setDrawer(args => {
         if (args.isInToolbox || args.isHighlighted) {
@@ -79,19 +74,18 @@ Controls.XAntiControl = new GateBuilder().
         }
         let p = args.rect.center();
         args.painter.fillCircle(p, 5);
+        args.painter.fillHalfCircle(p, 5, "black");
         args.painter.strokeCircle(p, 5);
-        args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
     }).
     gate;
 
-Controls.XControl = new GateBuilder().
-    setAlternate(Controls.XAntiControl).
-    setSerializedId("⊖").  // The drawn +/- convention was changed, but the serialized id must stay the same.
+Controls.XAntiControl = new GateBuilder().
+    setSerializedId("⊕").
     setSymbol("⊕").
-    setTitle("X-Axis Control").
-    setBlurb("Conditions on a qubit being ON-OFF.\n" +
+    setTitle("X-Axis Anti-Control").
+    setBlurb("Conditions on a qubit being |+⟩.\n" +
         "Gates in the same column only apply to states meeting the condition.").
-    markAsControlExpecting(true).
+    markAsControlExpecting(false).
     setSetupCleanupEffectToUpdateFunc(
         HalfTurnGates.H.customOperation,
         HalfTurnGates.H.customOperation).
@@ -111,11 +105,37 @@ Controls.XControl = new GateBuilder().
     }).
     gate;
 
+Controls.XControl = new GateBuilder().
+    setAlternate(Controls.XAntiControl).
+    setSerializedId("⊖").  // The drawn +/- convention was changed, but the serialized id must stay the same.
+    setSymbol("⊖").
+    setTitle("X-Axis Control").
+    setBlurb("Conditions on a qubit being |-⟩.\n" +
+        "Gates in the same column only apply to states meeting the condition.").
+    markAsControlExpecting(true).
+    setSetupCleanupEffectToUpdateFunc(
+        HalfTurnGates.H.customOperation,
+        HalfTurnGates.H.customOperation).
+    setActualEffectToUpdateFunc(() => {}).
+    promiseEffectIsStable().
+    promiseEffectIsUnitary().
+    setDrawer(args => {
+        if (args.isInToolbox || args.isHighlighted) {
+            GatePainting.paintBackground(args);
+            GatePainting.paintOutline(args);
+        }
+        let p = args.rect.center();
+        args.painter.fillCircle(p, 5);
+        args.painter.strokeCircle(p, 5);
+        args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+    }).
+    gate;
+
 Controls.YAntiControl = new GateBuilder().
-    setSerializedId("⊗").  // The drawn cross/slash convention was changed, but the serialized id must stay the same.
-    setSymbol("(/)").
+    setSerializedId("⊗").
+    setSymbol("⊗").
     setTitle("Y-Axis Anti-Control").
-    setBlurb("Conditions on a qubit being ON+iOFF.\n" +
+    setBlurb("Conditions on a qubit being |i⟩.\n" +
         "Gates in the same column only apply to states meeting the condition.").
     markAsControlExpecting(false).
     setSetupCleanupEffectToUpdateFunc(
@@ -134,6 +154,7 @@ Controls.YAntiControl = new GateBuilder().
         args.painter.strokeCircle(p, 5);
         let r = 5*Math.sqrt(0.5)*1.1;
         args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+        args.painter.strokeLine(p.offsetBy(+r, +r), p.offsetBy(-r, -r));
         if (args.isInToolbox || args.isHighlighted) {
             GatePainting.paintOutline(args);
         }
@@ -142,10 +163,10 @@ Controls.YAntiControl = new GateBuilder().
 
 Controls.YControl = new GateBuilder().
     setAlternate(Controls.YAntiControl).
-    setSerializedId("(/)").  // The drawn cross/slash convention was changed, but the serialized id must stay the same.
-    setSymbol("⊗").
+    setSerializedId("⊘").  // The drawn cross/slash convention was changed, but the serialized id must stay the same.
+    setSymbol("⊘").
     setTitle("Y-Axis Control").
-    setBlurb("Conditions on a qubit being ON-iOFF.\n" +
+    setBlurb("Conditions on a qubit being |-i⟩.\n" +
         "Gates in the same column only apply to states meeting the condition.").
     markAsControlExpecting(true).
     setSetupCleanupEffectToUpdateFunc(
@@ -154,19 +175,18 @@ Controls.YControl = new GateBuilder().
     setActualEffectToUpdateFunc(() => {}).
     promiseEffectIsStable().
     promiseEffectIsUnitary().
-    setDrawer(ctx => {
-        if (ctx.isInToolbox || ctx.isHighlighted) {
-            GatePainting.paintBackground(ctx);
-            GatePainting.paintOutline(ctx);
+    setDrawer(args => {
+        if (args.isInToolbox || args.isHighlighted) {
+            GatePainting.paintBackground(args);
+            GatePainting.paintOutline(args);
         }
-        let p = ctx.rect.center();
-        ctx.painter.fillCircle(p, 5);
-        ctx.painter.strokeCircle(p, 5);
-        let r = 5*Math.sqrt(0.5);
-        ctx.painter.strokeLine(p.offsetBy(+r, +r), p.offsetBy(-r, -r));
-        ctx.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
-        if (ctx.isInToolbox || ctx.isHighlighted) {
-            GatePainting.paintOutline(ctx);
+        let p = args.rect.center();
+        args.painter.fillCircle(p, 5);
+        args.painter.strokeCircle(p, 5);
+        let r = 5*Math.sqrt(0.5)*1.1;
+        args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+        if (args.isInToolbox || args.isHighlighted) {
+            GatePainting.paintOutline(args);
         }
     }).
     gate;
@@ -288,6 +308,7 @@ Controls.ZParityControl = new GateBuilder().
 Controls.all = [
     Controls.Control,
     Controls.AntiControl,
+    Controls.DDControl,
     Controls.XAntiControl,
     Controls.XControl,
     Controls.YAntiControl,

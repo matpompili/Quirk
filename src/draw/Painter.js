@@ -191,6 +191,19 @@ class Painter {
     }
 
     /**
+     * Draws the inside of a circle.
+     * @param {!Point} center The center of the circle.
+     * @param {!number} radius The distance from the center of the circle to its side.
+     * @param {!string=} color The fill color. Defaults to white.
+     */
+    fillHalfCircle(center, radius, color = Config.DEFAULT_FILL_COLOR) {
+        this.ctx.beginPath();
+        this.ctx.arc(center.x, center.y, Math.max(radius - 0.5, 0), 0, Math.PI);
+        this.ctx.fillStyle = color;
+        this.ctx.fill();
+    }
+
+    /**
      * Draws some text in a bounded area.
      * @param {!string} text The text to print.
      * @param {!number} x

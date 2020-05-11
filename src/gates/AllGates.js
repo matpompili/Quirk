@@ -41,6 +41,7 @@ import {ModularMultiplicationGates} from "src/gates/ModularMultiplicationGates.j
 import {ModularMultiplyAccumulateGates} from "src/gates/ModularMultiplyAccumulateGates.js"
 import {MultiplicationGates} from "src/gates/MultiplicationGates.js"
 import {MultiplyAccumulateGates} from "src/gates/MultiplyAccumulateGates.js"
+import {NameGates} from "src/gates/NameGates.js"
 import {NeGate} from "src/gates/Joke_NeGate.js"
 import {ParametrizedRotationGates} from "src/gates/ParametrizedRotationGates.js"
 import {PhaseGradientGates} from "src/gates/PhaseGradientGates.js"
@@ -58,6 +59,7 @@ import {UniversalNotGate} from "src/gates/Impossible_UniversalNotGate.js"
 import {VariousXGates} from "src/gates/VariousXGates.js"
 import {VariousYGates} from "src/gates/VariousYGates.js"
 import {VariousZGates} from "src/gates/VariousZGates.js"
+import {VariousRotations} from "src/gates/VariousRotations.js"
 import {XorGates} from "src/gates/XorGates.js"
 import {ZeroGate} from "src/gates/Joke_ZeroGate.js"
 import {seq} from "src/base/Seq.js"
@@ -162,6 +164,7 @@ Gates.KnownToSerializer = [
     ...ModularMultiplyAccumulateGates.all,
     ...MultiplicationGates.all,
     ...MultiplyAccumulateGates.all,
+    ...NameGates.all,
     ...QuarterTurnGates.all,
     ...ParametrizedRotationGates.all,
     ...PhaseGradientGates.all,
@@ -172,6 +175,7 @@ Gates.KnownToSerializer = [
     ...VariousXGates.all,
     ...VariousYGates.all,
     ...VariousZGates.all,
+    ...VariousRotations.all,
     ...XorGates.all
 ];
 
@@ -190,7 +194,7 @@ Gates.TopToolboxGroups = [
     {
         hint: "Probes",
         gates: [
-            MeasurementGate,                  undefined,
+            MeasurementGate,                  Controls.DDControl,
             PostSelectionGates.PostSelectOff, PostSelectionGates.PostSelectOn,
             Controls.AntiControl,             Controls.Control
         ]
@@ -204,67 +208,27 @@ Gates.TopToolboxGroups = [
         ]
     },
     {
-        hint: "Half Turns",
+        hint: "Standard",
         gates: [
             HalfTurnGates.Z, SwapGateHalf,
-            HalfTurnGates.Y, undefined,
+            HalfTurnGates.Y, SpacerGate,
             HalfTurnGates.X, HalfTurnGates.H
         ]
     },
     {
-        hint: "Quarter Turns",
+        hint: "Order",
         gates: [
-            QuarterTurnGates.SqrtZForward, QuarterTurnGates.SqrtZBackward,
-            QuarterTurnGates.SqrtYForward, QuarterTurnGates.SqrtYBackward,
-            QuarterTurnGates.SqrtXForward, QuarterTurnGates.SqrtXBackward
+            CycleBitsGates.CycleBitsFamily.ofSize(3),        CycleBitsGates.ReverseCycleBitsFamily.ofSize(3),
+            InterleaveBitsGates.InterleaveBitsGateFamily.ofSize(6),
+            InterleaveBitsGates.DeinterleaveBitsGateFamily.ofSize(6),
         ]
     },
     {
-        hint: "Eighth Turns",
+        hint: "Names",
         gates: [
-            VariousZGates.Z4, VariousZGates.Z4i,
-            VariousYGates.Y4, VariousYGates.Y4i,
-            VariousXGates.X4, VariousXGates.X4i,
-        ]
-    },
-    {
-        hint: "Spinning",
-        gates: [
-            PoweringGates.ZForward, PoweringGates.ZBackward,
-            PoweringGates.YForward, PoweringGates.YBackward,
-            PoweringGates.XForward, PoweringGates.XBackward,
-        ]
-    },
-    {
-        hint: "Formulaic",
-        gates: [
-            ParametrizedRotationGates.FormulaicRotationZ, ParametrizedRotationGates.FormulaicRotationRz,
-            ParametrizedRotationGates.FormulaicRotationY, ParametrizedRotationGates.FormulaicRotationRy,
-            ParametrizedRotationGates.FormulaicRotationX, ParametrizedRotationGates.FormulaicRotationRx,
-        ]
-    },
-    {
-        hint: "Parametrized",
-        gates: [
-            ParametrizedRotationGates.ZToA, ParametrizedRotationGates.ZToMinusA,
-            ParametrizedRotationGates.YToA, ParametrizedRotationGates.YToMinusA,
-            ParametrizedRotationGates.XToA, ParametrizedRotationGates.XToMinusA,
-        ]
-    },
-    {
-        hint: 'Sampling',
-        gates: [
-            Detectors.ZDetector, Detectors.ZDetectControlClear,
-            Detectors.YDetector, Detectors.YDetectControlClear,
-            Detectors.XDetector, Detectors.XDetectControlClear,
-        ]
-    },
-    {
-        hint: "Parity",
-        gates: [
-            Controls.ZParityControl, undefined,
-            Controls.YParityControl, undefined,
-            Controls.XParityControl, undefined,
+            NameGates.Alice, NameGates.Electron,
+            NameGates.Bob, NameGates.Carbon,
+            NameGates.Charlie, undefined,
         ]
     },
 ];
@@ -281,73 +245,19 @@ Gates.BottomToolboxGroups = [
         ]
     },
     {
-        hint: "Order",
+        hint: "Half Turns",
         gates: [
-            CountingGates.CountingFamily.ofSize(3),          CountingGates.UncountingFamily.ofSize(3),
-            ReverseBitsGateFamily.ofSize(2), undefined,
-            CycleBitsGates.CycleBitsFamily.ofSize(3),        CycleBitsGates.ReverseCycleBitsFamily.ofSize(3),
-            InterleaveBitsGates.InterleaveBitsGateFamily.ofSize(6),
-            InterleaveBitsGates.DeinterleaveBitsGateFamily.ofSize(6),
+            VariousRotations.X180, undefined,
+            VariousRotations.Y180, undefined, 
+            VariousRotations.Z180, undefined,
         ]
     },
     {
-        hint: 'Frequency',
+        hint: "Quarter Turns",
         gates: [
-            FourierTransformGates.FourierTransformFamily.ofSize(2),
-                FourierTransformGates.InverseFourierTransformFamily.ofSize(2),
-            undefined, undefined,
-            PhaseGradientGates.PhaseGradientFamily.ofSize(2),
-                PhaseGradientGates.PhaseDegradientFamily.ofSize(2),
-            PhaseGradientGates.DynamicPhaseGradientFamily.ofSize(2),
-                PhaseGradientGates.DynamicPhaseDegradientFamily.ofSize(2),
-        ]
-    },
-    {
-        hint: "Inputs",
-        gates: [
-            InputGates.InputAFamily.ofSize(2), InputGates.SetA,
-            InputGates.InputBFamily.ofSize(2), InputGates.SetB,
-            InputGates.InputRFamily.ofSize(2), InputGates.SetR,
-            undefined, undefined,
-        ]
-    },
-    {
-        hint: 'Arithmetic',
-        gates: [
-            IncrementGates.IncrementFamily.ofSize(2), IncrementGates.DecrementFamily.ofSize(2),
-            ArithmeticGates.PlusAFamily.ofSize(2), ArithmeticGates.MinusAFamily.ofSize(2),
-            MultiplyAccumulateGates.MultiplyAddInputsFamily.ofSize(2),
-                MultiplyAccumulateGates.MultiplySubtractInputsFamily.ofSize(2),
-            MultiplicationGates.TimesAFamily.ofSize(2), MultiplicationGates.TimesAInverseFamily.ofSize(2),
-        ]
-    },
-    {
-        hint: "Compare",
-        gates: [
-            ComparisonGates.ALessThanB, ComparisonGates.AGreaterThanB,
-            ComparisonGates.ALessThanOrEqualToB, ComparisonGates.AGreaterThanOrEqualToB,
-            ComparisonGates.AEqualToB, ComparisonGates.ANotEqualToB,
-            undefined, undefined,
-        ]
-    },
-    {
-        hint: "Modular",
-        gates: [
-            ModularIncrementGates.IncrementModRFamily.ofSize(2), ModularIncrementGates.DecrementModRFamily.ofSize(2),
-            ModularAdditionGates.PlusAModRFamily.ofSize(2), ModularAdditionGates.MinusAModRFamily.ofSize(2),
-            ModularMultiplicationGates.TimesAModRFamily.ofSize(2),
-                ModularMultiplicationGates.TimesAModRInverseFamily.ofSize(2),
-            ModularMultiplicationGates.TimesBToTheAModRFamily.ofSize(2),
-                ModularMultiplicationGates.TimesInverseBToTheAModRFamily.ofSize(2),
-        ]
-    },
-    {
-        hint: 'Scalar',
-        gates: [
-            SpacerGate, ZeroGate,
-            NeGate, undefined,
-            ImaginaryGate, AntiImaginaryGate,
-            SqrtImaginaryGate, AntiSqrtImaginaryGate,
+            VariousRotations.X90, VariousRotations.mX90,
+            VariousRotations.Y90, VariousRotations.mY90,
+            VariousRotations.Z90, VariousRotations.mZ90,
         ]
     },
 ];
