@@ -307,7 +307,8 @@ obsForgeIsShowing.
         obsIsAnyOverlayShowing.send(e);
         canvasDiv.tabIndex = e ? -1 : 0;
     });
-
+// Disable Menu at start-up 
+closeMenu();
 // If the webgl initialization is going to fail, don't fail during the module loading phase.
 haveLoaded = true;
 setTimeout(() => {
@@ -315,6 +316,7 @@ setTimeout(() => {
     redrawNow();
     document.getElementById("loading-div").style.display = 'none';
     document.getElementById("close-menu-button").style.display = 'block';
+
     if (!displayed.get().displayedCircuit.circuitDefinition.isEmpty()) {
         closeMenu();
     }
