@@ -194,7 +194,7 @@ Gates.TopToolboxGroups = [
     {
         hint: "Probes",
         gates: [
-            MeasurementGate,                  Controls.DDControl,
+            MeasurementGate,                  undefined,
             PostSelectionGates.PostSelectOff, PostSelectionGates.PostSelectOn,
             Controls.AntiControl,             Controls.Control
         ]
