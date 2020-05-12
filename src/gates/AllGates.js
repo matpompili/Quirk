@@ -265,11 +265,11 @@ Gates.BottomToolboxGroups = [
 /** @type {!Map.<undefined|!string, !Array.<!Gate>>} */
 const INITIAL_STATES_TO_GATES = new Map([
     [undefined, []],
-    ['1', [Gates.HalfTurns.X]],
-    ['+', [Gates.HalfTurns.H]],
-    ['-', [Gates.HalfTurns.H, Gates.HalfTurns.Z]],
-    ['i', [Gates.HalfTurns.H, Gates.QuarterTurns.SqrtZForward]],
-    ['-i', [Gates.HalfTurns.H, Gates.QuarterTurns.SqrtZBackward]]
+    ['1', [VariousRotations.X180]],
+    ['+', [VariousRotations.Y90]],
+    ['-', [VariousRotations.mY90]],
+    ['i', [VariousRotations.mX90]],
+    ['-i', [VariousRotations.X90]]
 ]);
 
 export {Gates, INITIAL_STATES_TO_GATES}

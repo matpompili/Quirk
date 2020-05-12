@@ -316,9 +316,14 @@ setTimeout(() => {
     redrawNow();
     document.getElementById("loading-div").style.display = 'none';
     document.getElementById("close-menu-button").style.display = 'block';
+    
 
     if (!displayed.get().displayedCircuit.circuitDefinition.isEmpty()) {
         closeMenu();
+    } else {
+        // Hack to include the custom gates right away
+        location.href = '#circuit={"cols":[],"gates":[{"id":"~+cx90","name":"+CX90","circuit":{"cols":[["◦","X90"],["•","-X90"]]}},{"id":"~-cx90","name":"-CX90","circuit":{"cols":[["◦","-X90"],["•","X90"]]}},{"id":"~+cy90","name":"+CY90","circuit":{"cols":[["◦","Y90"],["•","-Y90"]]}},{"id":"~-cy90","name":"-CY90","circuit":{"cols":[["◦","-Y90"],["•","Y90"]]}}]}'
+
     }
 
     try {
