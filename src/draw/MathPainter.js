@@ -28,10 +28,10 @@ class MathPainter {
         let e = Math.pow(10, -fractionalDigits);
 
         if (v > 100 - e / 2) {
-            return "On";
+            return "|0⟩";
         }
         if (v < e / 2) {
-            return "Off";
+            return "|1⟩";
         }
 
         return Math.min(Math.max(v, e), 100 - e).toFixed(fractionalDigits) + "%";
@@ -57,9 +57,9 @@ class MathPainter {
             painter.fillPolygon([drawArea.bottomLeft(), drawArea.topLeft(), drawArea.topRight()], fillColor);
             painter.print("NaN", cen.x, cen.y, 'center', 'middle', 'red', '9pt sans-serif', drawArea.w, drawArea.h);
         } else {
-            painter.fillRect(drawArea.takeBottomProportion(probability), fillColor);
+            painter.fillRect(drawArea.takeBottomProportion( 1 - probability), fillColor);
             painter.print(
-                MathPainter.describeProbability(probability, 1),
+                MathPainter.describeProbability( 1- probability, 1),
                 cen.x,
                 cen.y,
                 'center',
@@ -80,8 +80,8 @@ class MathPainter {
                 painter,
                 drawArea.right(),
                 drawArea.y,
-                'Chance of being ON if measured',
-                (100*probability).toFixed(5) + "%");
+                'Chance of being |0⟩ if measured',
+                (100*(1-probability)).toFixed(5) + "%");
         }
     }
 
