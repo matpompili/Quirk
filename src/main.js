@@ -309,6 +309,34 @@ obsForgeIsShowing.
     });
 // Disable Menu at start-up 
 closeMenu();
+
+const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  console.log("Copied " + str + " to clipboard");
+};
+
+const copyLinkButton = document.getElementById('copy-link-button');
+
+copyLinkButton.addEventListener('click', function () {
+    console.log("starting copying")
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = 'https://tinyurl.com/api-create.php?url='+encodeURIComponent(location.href); 
+    copyLinkButton.textContent = "Copying..."
+    fetch(proxyurl + url)
+    .then(response => response.text())
+    .then(contents => copyToClipboard(contents))
+    .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+    .then(() => {
+        setTimeout(() => copyLinkButton.textContent = "Done! You can paste it now.", 1000)
+        setTimeout(() => copyLinkButton.textContent = "Copy link to this circuit", 4000)
+    })
+});
+
 // If the webgl initialization is going to fail, don't fail during the module loading phase.
 haveLoaded = true;
 setTimeout(() => {
@@ -332,5 +360,5 @@ setTimeout(() => {
         // If that failed, the user is already getting warnings about WebGL not being supported.
         // Just silently log it.
         console.error(ex);
-    }
+    }    
 }, 0);
