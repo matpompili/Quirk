@@ -337,6 +337,34 @@ copyLinkButton.addEventListener('click', function () {
     })
 });
 
+const copyScreenshotButton = document.getElementById('copy-screenshot-button');
+
+copyScreenshotButton.addEventListener('click', function () {
+    console.log("screenshot")
+    
+    copyScreenshotButton.textContent = "Copying..."
+
+    const toDraw = document.getElementById('drawCanvas')
+    var shot = document.createElement('canvas');
+    const displayedCircuit = displayed.get().displayedCircuit
+    const width = displayedCircuit.desiredWidth()
+    const height = displayedCircuit.desiredHeight()
+    shot.width = width
+    shot.height = height
+    shot.getContext('2d').drawImage(toDraw, 
+        0, 148, 
+        width, height,
+        0,0,
+        width, height);
+    // document.body.appendChild(shot)
+    
+    shot.toBlob(blob => navigator.clipboard.write([new ClipboardItem({'image/png': blob})]))
+
+    setTimeout(() => copyScreenshotButton.textContent = "Done! You can paste it now.", 1000)
+    setTimeout(() => copyScreenshotButton.textContent = "Copy screenshot", 4000)
+
+});
+
 // If the webgl initialization is going to fail, don't fail during the module loading phase.
 haveLoaded = true;
 setTimeout(() => {
