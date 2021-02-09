@@ -324,7 +324,7 @@ const copyLinkButton = document.getElementById('copy-link-button');
 
 copyLinkButton.addEventListener('click', function () {
     console.log("starting copying")
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://cors-proxy.htmldriven.com/?url=";
     const url = 'https://tinyurl.com/api-create.php?url='+encodeURIComponent(location.href); 
     copyLinkButton.textContent = "Copying..."
     fetch(proxyurl + url)
