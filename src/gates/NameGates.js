@@ -64,12 +64,22 @@ NameGates.Carbon = new GateBuilder().
     setDrawer(GatePainting.LABEL_DRAWER).
     gate;
 
+NameGates.Photon = new GateBuilder().
+    setSerializedIdAndSymbol("Photon").
+    setTitle("Photon").
+    setBlurb("A gate with no effect.").
+    markAsNotInterestedInControls().
+    promiseHasNoNetEffectOnStateVector().
+    setDrawer(GatePainting.LABEL_DRAWER).
+    gate;
+
 NameGates.all = [
     NameGates.Alice,
     NameGates.Bob,
     NameGates.Charlie,
     NameGates.Electron,
     NameGates.Carbon,
+    NameGates.Photon
 ];
 
 export {NameGates}

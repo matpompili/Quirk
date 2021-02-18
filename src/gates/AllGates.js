@@ -228,7 +228,7 @@ Gates.TopToolboxGroups = [
         gates: [
             NameGates.Alice, NameGates.Electron,
             NameGates.Bob, NameGates.Carbon,
-            NameGates.Charlie, undefined,
+            NameGates.Charlie, NameGates.Photon,
         ]
     },
 ];
@@ -248,7 +248,7 @@ Gates.BottomToolboxGroups = [
         hint: "Half Turns",
         gates: [
             VariousRotations.X180, undefined,
-            VariousRotations.Y180, undefined, 
+            VariousRotations.Y180, undefined,
             VariousRotations.Z180, undefined,
         ]
     },
@@ -258,6 +258,14 @@ Gates.BottomToolboxGroups = [
             VariousRotations.X90, VariousRotations.mX90,
             VariousRotations.Y90, VariousRotations.mY90,
             VariousRotations.Z90, VariousRotations.mZ90,
+        ]
+    },
+    {
+        hint: "Alpha Turns",
+        gates: [
+            VariousRotations.alpha_5, VariousRotations.alpha_7,
+            VariousRotations.alpha_10, VariousRotations.alpha_15,
+            VariousRotations.alpha_20, VariousRotations.alpha_30,
         ]
     },
 ];

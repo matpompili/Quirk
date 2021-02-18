@@ -71,6 +71,42 @@ VariousRotations.Z180 = Gate.fromKnownMatrix(
     "Z180 Gate",
     "Rotation around Z by 180 degrees.");
 
+VariousRotations.alpha_5 = Gate.fromKnownMatrix(
+    "α05",
+    Matrix.fromAngleAxisPhaseRotation(Math.PI * 0.8564, [1,0,0], 0),
+    "α05 Gate",
+    "Rotation around X that gives 5% population in |0⟩.");
+
+VariousRotations.alpha_7 = Gate.fromKnownMatrix(
+    "α07",
+    Matrix.fromAngleAxisPhaseRotation(Math.PI * 0.8295, [1,0,0], 0),
+    "α07 Gate",
+    "Rotation around X that gives 7% population in |0⟩.");
+
+VariousRotations.alpha_10 = Gate.fromKnownMatrix(
+    "α10",
+    Matrix.fromAngleAxisPhaseRotation(Math.PI * 0.7952, [1,0,0], 0),
+    "α10 Gate",
+    "Rotation around X that gives 10% population in |0⟩.");
+
+VariousRotations.alpha_15 = Gate.fromKnownMatrix(
+    "α15",
+    Matrix.fromAngleAxisPhaseRotation(Math.PI * 0.7468, [1,0,0], 0),
+    "α15 Gate",
+    "Rotation around X that gives 15% population in |0⟩.");
+
+VariousRotations.alpha_20 = Gate.fromKnownMatrix(
+    "α20",
+    Matrix.fromAngleAxisPhaseRotation(Math.PI * 0.7048, [1,0,0], 0),
+    "α20 Gate",
+    "Rotation around X that gives 20% population in |0⟩.");
+
+VariousRotations.alpha_30 = Gate.fromKnownMatrix(
+    "α30",
+    Matrix.fromAngleAxisPhaseRotation(Math.PI * 0.6310, [1,0,0], 0),
+    "α30 Gate",
+    "Rotation around X that gives 30% population in |0⟩.");
+
 VariousRotations.all =[
     VariousRotations.X90,
     VariousRotations.mX90,
@@ -81,6 +117,12 @@ VariousRotations.all =[
     VariousRotations.X180,
     VariousRotations.Y180,
     VariousRotations.Z180,
+    VariousRotations.alpha_5,
+    VariousRotations.alpha_7,
+    VariousRotations.alpha_10,
+    VariousRotations.alpha_15,
+    VariousRotations.alpha_20,
+    VariousRotations.alpha_30,
 ];
 
 export {VariousRotations}

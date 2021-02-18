@@ -324,7 +324,7 @@ const copyLinkButton = document.getElementById('copy-link-button');
 
 copyLinkButton.addEventListener('click', function () {
     console.log("starting copying")
-    const proxyurl = "https://cors-proxy.htmldriven.com/?url=";
+    const proxyurl = "";
     const url = 'https://tinyurl.com/api-create.php?url='+encodeURIComponent(location.href); 
     copyLinkButton.textContent = "Copying..."
     fetch(proxyurl + url)
@@ -378,7 +378,7 @@ setTimeout(() => {
         closeMenu();
     } else {
         // Hack to include the custom gates right away
-        location.href = '#circuit={"cols":[],"gates":[{"id":"~+cx90","name":"+CX90","circuit":{"cols":[["◦","X90"],["•","-X90"]]}},{"id":"~-cx90","name":"-CX90","circuit":{"cols":[["◦","-X90"],["•","X90"]]}},{"id":"~+cy90","name":"+CY90","circuit":{"cols":[["◦","Y90"],["•","-Y90"]]}},{"id":"~-cy90","name":"-CY90","circuit":{"cols":[["◦","-Y90"],["•","Y90"]]}}]}'
+        location.href = '#circuit={"cols":[],"gates":[{"id":"~+cx90","name":"+CX90","circuit":{"cols":[["◦","X90"],["•","-X90"]]}},{"id":"~-cx90","name":"-CX90","circuit":{"cols":[["◦","-X90"],["•","X90"]]}},{"id":"~+cy90","name":"+CY90","circuit":{"cols":[["◦","Y90"],["•","-Y90"]]}},{"id":"~-cy90","name":"-CY90","circuit":{"cols":[["◦","-Y90"],["•","Y90"]]}},{"id":"~do97","name":"CX180","circuit":{"cols":[["Z180","X180"]]}},{"id":"~6q9","name":"CY180","circuit":{"cols":[["Z180","Y180"]]}}]}'
 
     }
 
